@@ -35,10 +35,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+];
+ public function microposts()
+    {
+        return $this->hasMany(Micropost::class);
+    }
+     public function loadRelationshipCounts()
+    {
+        $this->loadCount('microposts');
+    }
 }
- User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
